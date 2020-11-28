@@ -10,8 +10,13 @@ using namespace std;
 
 int main()
 {
-    CommandParser parse1("CrEaTE table Nume (col1 int, col2 text, col3 date)");
-    CommandParser parse2 = parse1;
-    //parse2.getInfo();
-    parse1.startParse();
+    try {
+        CommandParser parse1("SELECT ALL FROM a WHERE a = d");
+        parse1.startParse();
+        //parse1.getInfo();
+    }
+    catch (ProjectExceptionParser* err) {
+        cout << err->getError();
+        delete err;
+    }
 }

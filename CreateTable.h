@@ -4,7 +4,7 @@ using namespace std;
 
 class ProjectExceptionCreateTable : exception
 {
-
+	
 };
 
 class CreateTable {
@@ -69,12 +69,20 @@ public:
 					throw new ProjectExceptionCreateTable();
 				}
 			}
-
+			this->getInfo();
 			Tables table(this->input,this->nrWords);
 		}
 		else
 		{
 			throw new ProjectExceptionCreateTable();
+		}
+	}
+
+	void getInfo() {
+		cout << endl << "Created table with name: " << this->input[0];
+		cout << endl << "Table columns and data types:" << endl;
+		for (int i = 1; i < nrWords; i=i+2) {
+			cout << this->input[i] << " " << this->input[i+1] << endl;
 		}
 	}
 };

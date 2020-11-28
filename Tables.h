@@ -9,7 +9,7 @@ class Tables {
 public:
 	//creates table
 	Tables(char** input, int noWords) {
-		this->name.assign(input[0],strlen(input[0])); //stores table name into class attribute name
+		this->name = string(input[0]); //stores table name into class attribute name
 		this->columns = new char* [noWords / 2];  //copies info into the 2 matrixes, columns and dataTypes
 		this->dataTypes = new char* [noWords / 2];
 		this->nrColumns = noWords / 2;
