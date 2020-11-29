@@ -10,7 +10,9 @@ class ProjectExceptionCreateTable : exception
 class CreateTable {
 	char** input = nullptr; //Matrix with all words in the input
 	int nrWords = 0; //Number of words in the input, matrix
-	vector <string> dataTypes = { "text","integer","float" }; //all acceptable data types for columns
+	char dataTypes[3][20] = { {"integer"},{"float"},{"text"} };
+
+	const static int NR_DATA_TYPES = 3;
 
 public:
 
@@ -56,12 +58,14 @@ public:
 	//creates the new table with given info
 	void startCreate() {
 		//checks if we have at least 1 column and if each column has a data type
+
+
 		if (this->nrWords >= 3 && this->nrWords % 2 == 1) {
 			//check data type of columns
 			for (int i = 2; i < this->nrWords; i = i + 2) {
 				int ok = 0;
-				for (int j = 0; j < dataTypes.size(); j++) {
-					if (_stricmp(this->input[i], dataTypes[j].c_str())==0) {
+				for (int j = 0; j < NR_DATA_TYPES; j++) {
+					if (_stricmp(this->input[i], dataTypes[j])==0) {
 						ok = 1;
 					}
 				}
