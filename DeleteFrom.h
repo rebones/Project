@@ -35,8 +35,7 @@ public:
 			strcpy(this->input[nr], newInput[i]);
 			nr++;
 		}
-		for (int i = 0; i < this->nrWords; i++)
-			cout << endl << this->input[i];
+
 	}
 
 	DeleteFrom(string tableName) {
@@ -84,6 +83,8 @@ public:
 		}
 	}
 
+	//setters
+	//getters
 	void getInfo() {
 		cout << endl << "From table " << this->tableName << " all information is deleted where column " << this->input[0] << " = " << this->input[1];
 	}
@@ -169,8 +170,8 @@ public:
 		}
 	}
 
+	//operators
 	friend ostream& operator<<(ostream& output, const DeleteFrom& df);
-	friend istream& operator>>(istream& input, const DeleteFrom& df);
 
 	DeleteFrom operator=(const DeleteFrom& df) {
 		if (this != &df) {
@@ -205,11 +206,21 @@ public:
 
 	DeleteFrom operator--(int) {
 		DeleteFrom newDf = *this;
+		for (int i = 0; i < this->nrWords; i++) {
+			delete[] this->input[i];
+		}
+		delete[] this->input;
+		this->input = nullptr;
 		this->nrWords = 0;
 		return newDf;
 	}
 
 	DeleteFrom operator--() {
+		for (int i = 0; i < this->nrWords; i++) {
+			delete[] this->input[i];
+		}
+		delete[] this->input;
+		this->input = nullptr;
 		this->nrWords = 0;
 		return *this;
 	}

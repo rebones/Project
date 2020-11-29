@@ -189,7 +189,7 @@ public:
             }
         }
         if (_stricmp(this->input[0], "SELECT") == 0) {
-
+            ok = 1;
             Select select;
             try {
                 select.checkFormat(this->input + 1, this->nrWords - 1);
@@ -200,9 +200,7 @@ public:
             catch (ProjectExceptionSelect* err) {
                 cout << endl << "Invalid SELECT command format";
                 delete err;
-            }
-            
-            ok = 1;
+            }   
         }
         if (ok == 0) {
             cout << endl << "Invalid input";
