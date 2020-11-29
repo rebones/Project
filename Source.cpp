@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
     try {
-        CommandParser parse1("SELECT ALL FROM a WHERE a = d");
+        CommandParser parse1("SELECT COL1 COL2 FROM TNAME WHERE A = B");
         parse1.startParse();
         //parse1.getInfo();
     }

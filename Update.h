@@ -23,6 +23,7 @@ public:
 		newNrWords = newNrWords - 1;		
 		int nr = 0;
 		bool ok = 0;
+
 		for (int i = 2; i < newNrWords; i++) {
 			if (_stricmp(newInput[i], "WHERE") != 0) {
 				this->input[nr] = new char[strlen(newInput[i]) + 1];
@@ -44,10 +45,6 @@ public:
 		}
 		if (ok == 0) {
 			this->structure = false;
-		}
-		cout << this->nrWords;
-		for (int i = 0; i < this->nrWords; i++) {
-			cout <<endl<< this->input[i];
 		}
 	}
 

@@ -195,6 +195,7 @@ public:
                 select.checkFormat(this->input + 1, this->nrWords - 1);
                 select.addInformation(this->input + 1, this->nrWords-1);
                 select.startSelect();
+                Select select2 = select;
             }
             catch (ProjectExceptionSelect* err) {
                 cout << endl << "Invalid SELECT command format";
@@ -256,5 +257,52 @@ public:
             cout << this->input[i]<< endl;
         }
         cout << this->nrWords;
+    }
+
+    //operators
+    CommandParser operator=(const CommandParser& cp) {
+        if (this != &cp) {
+            this->reader = cp.reader;
+            this->nrWords = cp.nrWords;
+            if (this->input != nullptr) {
+                for (int i = 0; i < this->nrWords; i++)
+                    delete[] this->input[i];
+                delete[] this->input;
+            }
+            this->input = new char* [this->nrWords];
+            for (int i = 0; i < this->nrWords; i++) {
+                this->input[i] = new char[strlen(cp.input[i]) + 1];
+            }
+            for (int i = 0; i < this->nrWords; i++) {
+                strcpy(this->input[i], cp.input[i]);
+            }
+        }
+        return *this;
+    }
+
+    bool operator==(const CommandParser& cp)
+    {
+        if (this->nrWords != cp.nrWords)
+            return 0;
+        else
+        {
+            if (this->reader.compare(cp.reader.c_str()) != 0)
+                return 0;
+        }
+        return 1;
+    }
+
+    char* operator[](int i)
+    {
+        if (i < nrWords)
+            return this->input[i];
+        else
+            throw ProjectExceptionParser();
+    }
+
+    CommandParser operator+(const char* newCommand)
+    {
+        CommandParser newParser(newCommand);
+        return newParser;
     }
 };

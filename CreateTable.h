@@ -10,7 +10,7 @@ class ProjectExceptionCreateTable : exception
 class CreateTable {
 	char** input = nullptr; //Matrix with all words in the input
 	int nrWords = 0; //Number of words in the input, matrix
-	vector <string> dataTypes = { "text","int","float","date" }; //all acceptable data types for columns
+	vector <string> dataTypes = { "text","integer","float" }; //all acceptable data types for columns
 
 public:
 
@@ -84,6 +84,26 @@ public:
 		for (int i = 1; i < nrWords; i=i+2) {
 			cout << this->input[i] << " " << this->input[i+1] << endl;
 		}
+	}
+
+	//operators
+	CreateTable operator=(const CreateTable& ct) {
+		if (this != &ct) {
+			this->nrWords = ct.nrWords;
+			if (this->input != nullptr) {
+				for (int i = 0; i < this->nrWords; i++)
+					delete[] this->input[i];
+				delete[] this->input;
+			}
+			this->input = new char* [this->nrWords];
+			for (int i = 0; i < this->nrWords; i++) {
+				this->input[i] = new char[strlen(ct.input[i]) + 1];
+			}
+			for (int i = 0; i < this->nrWords; i++) {
+				strcpy(this->input[i], ct.input[i]);
+			}
+		}
+		return *this;
 	}
 };
 
