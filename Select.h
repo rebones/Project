@@ -272,6 +272,7 @@ public:
 	//operators
 
 	friend ostream& operator<<(ostream& output, const Select& s);
+	friend istream& operator>>(istream& input, Select& s);
 
 	Select operator=(const Select& s) {
 		if (this != &s) {

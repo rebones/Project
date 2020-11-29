@@ -172,6 +172,7 @@ public:
 
 	//operators
 	friend ostream& operator<<(ostream& output, const DeleteFrom& df);
+	friend istream& operator>>(istream& input, DeleteFrom& df);
 
 	DeleteFrom operator=(const DeleteFrom& df) {
 		if (this != &df) {
@@ -279,4 +280,26 @@ ostream& operator<<(ostream& output, const DeleteFrom& df) {
 	DeleteFrom df2=df;
 	df2.startDelete();
 	return output;
+}
+
+istream& operator>>(istream& input, DeleteFrom& df) {
+	cout << endl << "Table name: ";
+	input >> df.tableName;
+	for (int i = 0; i < df.nrWords; i++) {
+		delete[] df.input[i];
+	}
+	delete[] df.input;
+	df.input = nullptr;
+	char word[200];
+	df.nrWords = 2;
+	df.input = new char* [df.nrWords];
+	cout << endl << "Column name: ";
+	input >> word;
+	df.input[0] = new char[strlen(word) + 1];
+	strcpy(df.input[0], word);
+	cout << endl << "Value: ";
+	input >> word;
+	df.input[1] = new char[strlen(word) + 1];
+	strcpy(df.input[1], word);
+	return input;
 }
